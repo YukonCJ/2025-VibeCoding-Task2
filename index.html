@@ -1,52 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>小明：前端工程師新手之路 | 個人作品集</title>
-  <meta name="description" content="我是小明，一位前端工程師新手。歡迎來到我的個人網站，這裡彙整了我的學習紀錄、Side Project 專案與技術實作心得，一起探索前端開發的旅程！" />
+
+  <title>小明的前端工程師個人網站</title>
+  <meta name="description" content="小明的前端工程師個人網站，分享前端學習紀錄、作品集與實作心得，協助初學者入門前端開發。">
+
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; max-width: 100%; overflow-x: hidden; }
 
-    html,
+    /* ---- Dark mode ---- */
     body {
-      margin: 0;
-      padding: 0;
-      /* 確保頁面在所有指定視窗寬度下都不會水平捲動 */
-      /* max-width: 100%; 已在 body 內部的 container 處理 */
-      overflow-x: hidden;
-    }
-
-    body {
+      background: #0d1117;
+      color: #e6edf3;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", Arial, sans-serif;
       line-height: 1.6;
     }
+    a { color: #79c0ff; }
+    nav a { margin-right: 12px; text-decoration: none; }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
+    img { max-width: 100%; height: auto; display: block; }
 
-    /* 調整 .container 以確保響應式設計和不出現水平捲動 */
-    /* 移除固定的 1920px 寬度，改用響應式 max-width */
     .container {
-      max-width: 1440px;
-      /* 最大寬度設為最大響應式斷點或略大 */
       width: 100%;
-      /* 確保在小螢幕上能填滿 */
+      max-width: 1200px;
       margin: 0 auto;
       padding: 16px;
-    }
-
-    nav a {
-      margin-right: 12px;
-      text-decoration: none;
     }
 
     .grid {
@@ -55,38 +36,66 @@
       gap: 16px;
     }
 
-    .col-12 {
-      grid-column: span 12;
-    }
-
-    /* 確保在最小 320px 寬度下內容也適應良好 */
+    .col-12 { grid-column: span 12; }
     @media (min-width: 768px) {
-      .col-md-6 {
-        grid-column: span 6;
-      }
+      .col-md-6 { grid-column: span 6; }
     }
 
     .card {
-      border: 1px solid #e5e7eb;
+      border: 1px solid #30363d;
       border-radius: 12px;
       padding: 16px;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+      background: #161b22;
+      box-shadow: 0 1px 2px rgba(0,0,0,.5);
+      height: 100%;
     }
 
-    /* 解決 footer 中 a 標籤 href 為純 # 的問題 */
-    .footer-link {
-      text-decoration: none;
+    /* ======== 調整 關於我 左文右圖 等高 ======== */
+    @media (min-width: 768px) {
+      #about .grid {
+        align-items: stretch; /* 讓左右欄等高 */
+      }
+      #about .about-img-wrapper {
+        height: 100%;
+      }
+      #about img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 圖填滿高度 */
+        border-radius: 12px;
+      }
+    }
+
+    /* ======== Footer 背景圖 ======== */
+    footer {
+      background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600');
+      background-size: cover;
+      background-position: center;
+      padding: 40px 16px;
+      position: relative;
+      color: #e6edf3;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55); /* 深色遮罩提升可讀性 */
+    }
+
+    footer .footer-content {
+      position: relative; /* 使內容高於遮罩 */
+      max-width: 1200px;
+      margin: 0 auto;
     }
   </style>
 </head>
-
 <body>
   <header class="container" role="banner">
     <nav aria-label="主選單">
       <a href="#about">關於我</a>
       <a href="#projects">作品集</a>
-      <a href="https://example.com/blog" target="_blank" rel="noopener noreferrer">技術部落格</a>
+      <a href="https://example.com/blog">技術部落格</a>
       <a href="mailto:me@example.com">聯絡我</a>
     </nav>
 
@@ -95,36 +104,40 @@
     <p>歡迎來到我的個人網站！這裡整理了學習紀錄、Side Project 與實作心得。</p>
   </header>
 
-  <main class="container">
-    <section id="projects">
-      <h2>我的作品集</h2>
-      <div class="grid">
-        <div class="col-12 col-md-6">
-          <div class="card">
-            <h3>專案一：響應式網站</h3>
-            <p>使用 HTML/CSS 實作，符合行動裝置友善設計。</p>
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="card">
-            <h3>專案二：JavaScript 小工具</h3>
-            <p>一個簡單的待辦事項清單應用。</p>
-          </div>
+  <!-- ======================================================
+       About Section（更新：左右等高 + object-fit）
+  ====================================================== -->
+  <section id="about" class="container">
+    <div class="grid">
+      <div class="col-12 col-md-6">
+        <div class="card">
+          <h2>關於我</h2>
+          <p>
+            我是小明，一位正在學習前端工程的開發者。
+            我熱愛網頁互動、UI 設計與寫程式，希望成為能夠獨立完成專案的前端工程師。
+          </p>
+          <p>
+            目前主要學習內容包括：HTML、CSS、JavaScript、RWD、前端框架與網站最佳化。
+          </p>
         </div>
       </div>
-    </section>
 
-    <section id="about">
-      <h2>關於我</h2>
-      <p>熱衷於學習前端技術，目標是成為一名優秀的網頁開發者。</p>
-    </section>
-  </main>
+      <div class="col-12 col-md-6 about-img-wrapper">
+        <img
+          src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200"
+          alt="前端工程師工作桌面示意圖"
+        />
+      </div>
+    </div>
+  </section>
 
-  <footer class="container" role="contentinfo">
-    <p>© 2025 My Portfolio · <a class="footer-link" href="https://github.com/myusername" target="_blank"
-        rel="noopener noreferrer">GitHub</a></p>
-    <img src="https://source.unsplash.com/600x200/?technology,abstract" alt="抽象科技背景圖，展示數位化的概念">
+  <!-- ======================================================
+       Footer（圖片改為背景 + 遮罩）
+  ====================================================== -->
+  <footer role="contentinfo">
+    <div class="footer-content">
+      <p>© 2025 My Portfolio · <a href="https://github.com/">GitHub</a></p>
+    </div>
   </footer>
 </body>
-
 </html>
